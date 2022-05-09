@@ -7,8 +7,12 @@ const validCollege = async function (req, res, next) {
         let requestBody = req.body;
         let required= ["name","fullName","logoLink"]
         let keys= Object.keys(req.body)
-        if(JSON.stringify(keys)!==JSON.stringify(required)){
-            return res.status(400).send({ status: false, msg: "Plz Fill All the Details!!!" })
+       
+        for(let i=0; i<required.length; i++){
+            if(keys.includes(required[i]))
+               continue
+             else
+             return res.status(400).send({ status: false, msg: `Required field - ${required[i]}`})
         }
         
         let nameValidation = /^[a-zA-Z]+$/
@@ -38,9 +42,13 @@ const validIntern = async function (req, res, next) {
     try {
         let requestBody = req.body;
         let required= ["name","email","mobile", "collegeName"]
-        let keys= Object.keys(requestBody)
-        if(JSON.stringify(keys)!==JSON.stringify(required)){
-            return res.status(400).send({ status: false, msg: "Plz Fill All the Details!!!" })
+        let keys= Object.keys(req.body)
+       
+        for(let i=0; i<required.length; i++){
+            if(keys.includes(required[i]))
+               continue
+             else
+             return res.status(400).send({ status: false, msg: `Required field - ${required[i]}`})
         }
        
         const { name, email, mobile, collegeName } = requestBody;
